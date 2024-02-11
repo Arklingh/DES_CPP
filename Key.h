@@ -1,8 +1,8 @@
-#pragma once
+п»ї#pragma once
 #include "InformationBlock.h"
 #ifndef KEY_H
 #define KEY_H
-#define SHIFT(X,XCOUNT,Y,YCOUNT,MASK) (X<<XCOUNT)|((Y>>YCOUNT)&MASK)//Макрос для зсувів уліво
+#define SHIFT(X,XCOUNT,Y,YCOUNT,MASK) (X<<XCOUNT)|((Y>>YCOUNT)&MASK)//РњР°РєСЂРѕСЃ РґР»СЏ Р·СЃСѓРІС–РІ СѓР»С–РІРѕ
 #define C_D_SIZE 28
 
 class key {
@@ -33,14 +33,14 @@ class key {
 		{
 			register unsigned long long  LowKeyPart = Key;
 			unsigned int RoundLowPart = 0, RoundHightPart = 0;
-			extern unsigned char C0[], D0[], Iter[]; //Створюємо C0 і D0
+			extern unsigned char C0[], D0[], Iter[]; //РЎС‚РІРѕСЂСЋС”РјРѕ C0 С– D0
 			for (int i = 0; i < 28; i++)
 			{
 				RoundHightPart = SHIFT(RoundHightPart, 1, LowKeyPart, C0[i], 1);
 				RoundLowPart = SHIFT(RoundLowPart, 1, LowKeyPart, D0[i], 1);
 			}
 			//=============================================================================
-			//Генерація 16-ти ключів раундів
+			//Р“РµРЅРµСЂР°С†С–СЏ 16-С‚Рё РєР»СЋС‡С–РІ СЂР°СѓРЅРґС–РІ
 			for (int i = 0; i < 16; i++)
 			{
 				LeftShift(RoundLowPart, RoundHightPart, Iter[i]);
@@ -51,7 +51,7 @@ class key {
 	public:
 		static bool CheckKey(Block_64b &K, unsigned int KeyNumber)
 		{
-			//список слабких ключів для 3Des
+			//СЃРїРёСЃРѕРє СЃР»Р°Р±РєРёС… РєР»СЋС‡С–РІ РґР»СЏ 3Des
 			unsigned long long BadKeys3Des[] =
 			{
 			  0x01FE01FE01FE01FE,
@@ -110,7 +110,7 @@ class key {
 
 		key(Block_64b &Key)
 		{
-			GenerateDesKey(Key.Full_Block);//Ключі Раунду
+			GenerateDesKey(Key.Full_Block);//РљР»СЋС‡С– Р Р°СѓРЅРґСѓ
 		}
 
 		void ReversKeys()

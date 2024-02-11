@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "InformationBlock.h"
 #ifndef ENCRYPTION_H
 #define ENCRYPTION_H

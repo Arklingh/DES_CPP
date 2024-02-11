@@ -1,4 +1,4 @@
-#include <Windows.h>
+п»ї#include <Windows.h>
 #include <iostream>
 #include "DES.h"
 #ifndef FILER_H
@@ -9,34 +9,34 @@
 template <class BlockType> class Filer
 {
 private:
-	BlockType* OutBuffer; //Створюємо буфер виведення
-	BlockType* InpBuffer[2];//Створюємо 2 буфери введення
-	Encryption<BlockType>* Alg; //Покажчик на алгоритм шифрування
-	DWORD BufferSize;//Обчислюваний розмір буфера, що обчислюється
-	unsigned char* Buffers[3]; //Масив покажчиків на буфери
+	BlockType* OutBuffer; //РЎС‚РІРѕСЂСЋС”РјРѕ Р±СѓС„РµСЂ РІРёРІРµРґРµРЅРЅСЏ
+	BlockType* InpBuffer[2];//РЎС‚РІРѕСЂСЋС”РјРѕ 2 Р±СѓС„РµСЂРё РІРІРµРґРµРЅРЅСЏ
+	Encryption<BlockType>* Alg; //РџРѕРєР°Р¶С‡РёРє РЅР° Р°Р»РіРѕСЂРёС‚Рј С€РёС„СЂСѓРІР°РЅРЅСЏ
+	DWORD BufferSize;//РћР±С‡РёСЃР»СЋРІР°РЅРёР№ СЂРѕР·РјС–СЂ Р±СѓС„РµСЂР°, С‰Рѕ РѕР±С‡РёСЃР»СЋС”С‚СЊСЃСЏ
+	unsigned char* Buffers[3]; //РњР°СЃРёРІ РїРѕРєР°Р¶С‡РёРєС–РІ РЅР° Р±СѓС„РµСЂРё
 
 
 
 //=======================================================================================================================
-//Визначає розмір кластера (буфера)
+//Р’РёР·РЅР°С‡Р°С” СЂРѕР·РјС–СЂ РєР»Р°СЃС‚РµСЂР° (Р±СѓС„РµСЂР°)
 	unsigned int GetClusterSize(TCHAR* inpFile)
 	{
 		DWORD SectorsPerCluster = 0, BytesPerSector = 0, NumberOfFreeClusters = 0, TotalNumberOfClusters = 0;
-		TCHAR Disk[3] = { inpFile[0],inpFile[1],inpFile[2] };//Беремо перші 3 символи їхнього імені файлу (тобто ім'я диска)
+		TCHAR Disk[3] = { inpFile[0],inpFile[1],inpFile[2] };//Р‘РµСЂРµРјРѕ РїРµСЂС€С– 3 СЃРёРјРІРѕР»Рё С—С…РЅСЊРѕРіРѕ С–РјРµРЅС– С„Р°Р№Р»Сѓ (С‚РѕР±С‚Рѕ С–Рј'СЏ РґРёСЃРєР°)
 		if (!GetDiskFreeSpace(Disk, &SectorsPerCluster, &BytesPerSector, &NumberOfFreeClusters, &TotalNumberOfClusters))
 			return DEFAULT_BUFFER_SIZE;
-		//Якщо функція спрацювала, то множимо кількість секторів на кластер на кількість байт на секторі та отримуємо розмір кластера
+		//РЇРєС‰Рѕ С„СѓРЅРєС†С–СЏ СЃРїСЂР°С†СЋРІР°Р»Р°, С‚Рѕ РјРЅРѕР¶РёРјРѕ РєС–Р»СЊРєС–СЃС‚СЊ СЃРµРєС‚РѕСЂС–РІ РЅР° РєР»Р°СЃС‚РµСЂ РЅР° РєС–Р»СЊРєС–СЃС‚СЊ Р±Р°Р№С‚ РЅР° СЃРµРєС‚РѕСЂС– С‚Р° РѕС‚СЂРёРјСѓС”РјРѕ СЂРѕР·РјС–СЂ РєР»Р°СЃС‚РµСЂР°
 		else return SectorsPerCluster * BytesPerSector;
 	}
 	//=======================================================================================================================
 
 
 	//=======================================================================================================================
-	//Визначаємо розмір файлу
+	//Р’РёР·РЅР°С‡Р°С”РјРѕ СЂРѕР·РјС–СЂ С„Р°Р№Р»Сѓ
 	unsigned int GettingSizeOfFile(HANDLE hFile)
 	{
 		DWORD getting;
-		return GetFileSize(hFile, &getting);//повертає розмір буфера		 
+		return GetFileSize(hFile, &getting);//РїРѕРІРµСЂС‚Р°С” СЂРѕР·РјС–СЂ Р±СѓС„РµСЂР°		 
 	}
 
 
@@ -49,10 +49,10 @@ public:
 	unsigned int static const OUTPUTFILE_IS_NOT_OPEN = 24;
 
 	//=============================================================================================
-	//Конструктор
+	//РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ
 	Filer<BlockType>(Encryption<BlockType>* Algoritm)
 	{
-		Alg = Algoritm;//Встановлення покажчика на алгоритм шифрування		
+		Alg = Algoritm;//Р’СЃС‚Р°РЅРѕРІР»РµРЅРЅСЏ РїРѕРєР°Р¶С‡РёРєР° РЅР° Р°Р»РіРѕСЂРёС‚Рј С€РёС„СЂСѓРІР°РЅРЅСЏ		
 	}
 
 	Filer<BlockType>()
@@ -66,7 +66,7 @@ public:
 	}
 
 	//=============================================================================================
-	//Деструктор
+	//Р”РµСЃС‚СЂСѓРєС‚РѕСЂ
 	~Filer<BlockType>()
 	{
 
@@ -78,21 +78,21 @@ public:
 
 
 	//=============================================================================================
-	//Функція шифрування файлу
+	//Р¤СѓРЅРєС†С–СЏ С€РёС„СЂСѓРІР°РЅРЅСЏ С„Р°Р№Р»Сѓ
 	unsigned int Begin(TCHAR* inpFile, TCHAR* outptFile, bool isEncrypt)
 	{
-		BufferSize = GetClusterSize(inpFile);//Дізнаємося розмір Кластера
-		//Створюємо 3 масиви розміром кластера
+		BufferSize = GetClusterSize(inpFile);//Р”С–Р·РЅР°С”РјРѕСЃСЏ СЂРѕР·РјС–СЂ РљР»Р°СЃС‚РµСЂР°
+		//РЎС‚РІРѕСЂСЋС”РјРѕ 3 РјР°СЃРёРІРё СЂРѕР·РјС–СЂРѕРј РєР»Р°СЃС‚РµСЂР°
 		Buffers[0] = new unsigned char[BufferSize];
 		Buffers[1] = new unsigned char[BufferSize];
 		Buffers[2] = new unsigned char[BufferSize];
-		//Приведення покажчиків на створені масиви до покажчиків на масив об'єктів типу BlockType
+		//РџСЂРёРІРµРґРµРЅРЅСЏ РїРѕРєР°Р¶С‡РёРєС–РІ РЅР° СЃС‚РІРѕСЂРµРЅС– РјР°СЃРёРІРё РґРѕ РїРѕРєР°Р¶С‡РёРєС–РІ РЅР° РјР°СЃРёРІ РѕР±'С”РєС‚С–РІ С‚РёРїСѓ BlockType
 		OutBuffer = (BlockType*)((LPVOID*)(&Buffers[WRITE_BUFFER][0]));
 		InpBuffer[0] = (BlockType*)((LPVOID*)(&Buffers[0][0]));
 		InpBuffer[1] = (BlockType*)((LPVOID*)(&Buffers[1][0]));
 
 		OVERLAPPED OverlInPut, OverlOutPut;
-		//Заповнення структур для асинхронної роботи з файлами
+		//Р—Р°РїРѕРІРЅРµРЅРЅСЏ СЃС‚СЂСѓРєС‚СѓСЂ РґР»СЏ Р°СЃРёРЅС…СЂРѕРЅРЅРѕС— СЂРѕР±РѕС‚Рё Р· С„Р°Р№Р»Р°РјРё
 		OverlInPut.Internal = OverlInPut.InternalHigh = OverlInPut.Offset = OverlInPut.OffsetHigh = 0;
 		OverlInPut.hEvent = CreateEvent(0, FALSE, FALSE, 0);
 
@@ -101,19 +101,19 @@ public:
 
 		HANDLE hInPutFile, hOutPutFile;
 
-		//Налаштування початкових значень для змінних
+		//РќР°Р»Р°С€С‚СѓРІР°РЅРЅСЏ РїРѕС‡Р°С‚РєРѕРІРёС… Р·РЅР°С‡РµРЅСЊ РґР»СЏ Р·РјС–РЅРЅРёС…
 		unsigned int BufferNumber = 0, NewBufferNumber = 0, CountOfIterI, CountOfIterJ, CountOfLastIter;
 		DWORD ReadedBytes, WritedBytes;
 		unsigned char isNastyBlock;
 		BOOL  ResOfRead = FALSE, ResOfWrite = FALSE;
 		BlockType* TempBuf;
 
-		//Відкриття файлу для читання
+		//Р’С–РґРєСЂРёС‚С‚СЏ С„Р°Р№Р»Сѓ РґР»СЏ С‡РёС‚Р°РЅРЅСЏ
 		hInPutFile = CreateFile(inpFile, GENERIC_READ, 0, 0, OPEN_EXISTING, FILE_FLAG_OVERLAPPED, NULL);
 		if (hInPutFile == INVALID_HANDLE_VALUE)
 			return INPUTFILE_IS_NOT_OPEN;
 
-		//Открытие файла для записи
+		//РћС‚РєСЂС‹С‚РёРµ С„Р°Р№Р»Р° РґР»СЏ Р·Р°РїРёСЃРё
 		hOutPutFile = CreateFile(outptFile, GENERIC_WRITE, 0, 0, CREATE_ALWAYS, FILE_FLAG_OVERLAPPED, NULL);
 		if (hOutPutFile == INVALID_HANDLE_VALUE)
 		{
@@ -121,110 +121,110 @@ public:
 			return OUTPUTFILE_IS_NOT_OPEN;
 		}
 
-		//Розмір файлу
+		//Р РѕР·РјС–СЂ С„Р°Р№Р»Сѓ
 		DWORD FSize = GettingSizeOfFile(hInPutFile);
 
-		//Обчислюємо Кількість ітерацій
-		ReadedBytes = (FSize % BufferSize) ? 1 : 0;//Перевірка розміру файлу на кратність розміру кластера
-		CountOfIterI = (FSize / BufferSize + ReadedBytes) - 1;//Кількість звичайних ітерація
-		CountOfIterJ = BufferSize / sizeof(BlockType);//кількість блоків в одному буфері
+		//РћР±С‡РёСЃР»СЋС”РјРѕ РљС–Р»СЊРєС–СЃС‚СЊ С–С‚РµСЂР°С†С–Р№
+		ReadedBytes = (FSize % BufferSize) ? 1 : 0;//РџРµСЂРµРІС–СЂРєР° СЂРѕР·РјС–СЂСѓ С„Р°Р№Р»Сѓ РЅР° РєСЂР°С‚РЅС–СЃС‚СЊ СЂРѕР·РјС–СЂСѓ РєР»Р°СЃС‚РµСЂР°
+		CountOfIterI = (FSize / BufferSize + ReadedBytes) - 1;//РљС–Р»СЊРєС–СЃС‚СЊ Р·РІРёС‡Р°Р№РЅРёС… С–С‚РµСЂР°С†С–СЏ
+		CountOfIterJ = BufferSize / sizeof(BlockType);//РєС–Р»СЊРєС–СЃС‚СЊ Р±Р»РѕРєС–РІ РІ РѕРґРЅРѕРјСѓ Р±СѓС„РµСЂС–
 
-		//Визначаємо необхідність розширення останнього блоку
-		isNastyBlock = FSize % sizeof(BlockType);//Якщо є залишок від ділення ,то необхідно доповнити останній блок
+		//Р’РёР·РЅР°С‡Р°С”РјРѕ РЅРµРѕР±С…С–РґРЅС–СЃС‚СЊ СЂРѕР·С€РёСЂРµРЅРЅСЏ РѕСЃС‚Р°РЅРЅСЊРѕРіРѕ Р±Р»РѕРєСѓ
+		isNastyBlock = FSize % sizeof(BlockType);//РЇРєС‰Рѕ С” Р·Р°Р»РёС€РѕРє РІС–Рґ РґС–Р»РµРЅРЅСЏ ,С‚Рѕ РЅРµРѕР±С…С–РґРЅРѕ РґРѕРїРѕРІРЅРёС‚Рё РѕСЃС‚Р°РЅРЅС–Р№ Р±Р»РѕРє
 
-		//Перше зчитування з файлу		
+		//РџРµСЂС€Рµ Р·С‡РёС‚СѓРІР°РЅРЅСЏ Р· С„Р°Р№Р»Сѓ		
 		ResOfRead = ReadFile(hInPutFile, Buffers[BufferNumber], BufferSize, &ReadedBytes, &OverlInPut);
 		if (!ResOfRead)
-			GetOverlappedResult(hInPutFile, &OverlInPut, &ReadedBytes, TRUE);//Чекаємо закінчення читання файлу
+			GetOverlappedResult(hInPutFile, &OverlInPut, &ReadedBytes, TRUE);//Р§РµРєР°С”РјРѕ Р·Р°РєС–РЅС‡РµРЅРЅСЏ С‡РёС‚Р°РЅРЅСЏ С„Р°Р№Р»Сѓ
 
 		//=================================================	
-		//Шифруємо на 1 ітерацію менше ніж потрібно.
+		//РЁРёС„СЂСѓС”РјРѕ РЅР° 1 С–С‚РµСЂР°С†С–СЋ РјРµРЅС€Рµ РЅС–Р¶ РїРѕС‚СЂС–Р±РЅРѕ.
 		for (unsigned int i = 0; i < CountOfIterI; ++i)
 		{
-			NewBufferNumber = !BufferNumber;//Міняємо буфери для читання місцями
-			OverlInPut.Offset += BufferSize;//зсув покажчика у файлі читання на кількість прочитаних байт
-			ResOfRead = ReadFile(hInPutFile, (LPVOID)Buffers[NewBufferNumber], BufferSize, &ReadedBytes, &OverlInPut);//Читання з файлу в новий буфер (нульовий або перший)
-			if (i)//Усі ітерації крім найпершої
+			NewBufferNumber = !BufferNumber;//РњС–РЅСЏС”РјРѕ Р±СѓС„РµСЂРё РґР»СЏ С‡РёС‚Р°РЅРЅСЏ РјС–СЃС†СЏРјРё
+			OverlInPut.Offset += BufferSize;//Р·СЃСѓРІ РїРѕРєР°Р¶С‡РёРєР° Сѓ С„Р°Р№Р»С– С‡РёС‚Р°РЅРЅСЏ РЅР° РєС–Р»СЊРєС–СЃС‚СЊ РїСЂРѕС‡РёС‚Р°РЅРёС… Р±Р°Р№С‚
+			ResOfRead = ReadFile(hInPutFile, (LPVOID)Buffers[NewBufferNumber], BufferSize, &ReadedBytes, &OverlInPut);//Р§РёС‚Р°РЅРЅСЏ Р· С„Р°Р№Р»Сѓ РІ РЅРѕРІРёР№ Р±СѓС„РµСЂ (РЅСѓР»СЊРѕРІРёР№ Р°Р±Рѕ РїРµСЂС€РёР№)
+			if (i)//РЈСЃС– С–С‚РµСЂР°С†С–С— РєСЂС–Рј РЅР°Р№РїРµСЂС€РѕС—
 			{
-				if (!ResOfWrite)//Якщо файл не встиг записатися, то чекаємо закінчення запису файлу
+				if (!ResOfWrite)//РЇРєС‰Рѕ С„Р°Р№Р» РЅРµ РІСЃС‚РёРі Р·Р°РїРёСЃР°С‚РёСЃСЏ, С‚Рѕ С‡РµРєР°С”РјРѕ Р·Р°РєС–РЅС‡РµРЅРЅСЏ Р·Р°РїРёСЃСѓ С„Р°Р№Р»Сѓ
 					WaitForSingleObject(OverlOutPut.hEvent, INFINITE);
-				OverlOutPut.Offset += BufferSize;//зсув покажчика у файлі запису на кількість записаних байт
+				OverlOutPut.Offset += BufferSize;//Р·СЃСѓРІ РїРѕРєР°Р¶С‡РёРєР° Сѓ С„Р°Р№Р»С– Р·Р°РїРёСЃСѓ РЅР° РєС–Р»СЊРєС–СЃС‚СЊ Р·Р°РїРёСЃР°РЅРёС… Р±Р°Р№С‚
 			}
 
-			//Шифрування буфера
-			TempBuf = InpBuffer[BufferNumber];//Присвоюємо минулий буфер для читання тимчасовому буферу. Збільшує швидкість за рахунок зменшення кількості розіменувань
+			//РЁРёС„СЂСѓРІР°РЅРЅСЏ Р±СѓС„РµСЂР°
+			TempBuf = InpBuffer[BufferNumber];//РџСЂРёСЃРІРѕСЋС”РјРѕ РјРёРЅСѓР»РёР№ Р±СѓС„РµСЂ РґР»СЏ С‡РёС‚Р°РЅРЅСЏ С‚РёРјС‡Р°СЃРѕРІРѕРјСѓ Р±СѓС„РµСЂСѓ. Р—Р±С–Р»СЊС€СѓС” С€РІРёРґРєС–СЃС‚СЊ Р·Р° СЂР°С…СѓРЅРѕРє Р·РјРµРЅС€РµРЅРЅСЏ РєС–Р»СЊРєРѕСЃС‚С– СЂРѕР·С–РјРµРЅСѓРІР°РЅСЊ
 			for (unsigned int j = 0; j < CountOfIterJ; ++j)
 			{
-				OutBuffer[j] = Alg->EncryptTheFile(TempBuf[j]);//Шифрування буфера
+				OutBuffer[j] = Alg->EncryptTheFile(TempBuf[j]);//РЁРёС„СЂСѓРІР°РЅРЅСЏ Р±СѓС„РµСЂР°
 			}
-			if (i != CountOfIterI - 1)//Для всіх ітерацій, крім останньої, перевіряємо, чи записався буфер у файл, якщо ні, то чекаємо
+			if (i != CountOfIterI - 1)//Р”Р»СЏ РІСЃС–С… С–С‚РµСЂР°С†С–Р№, РєСЂС–Рј РѕСЃС‚Р°РЅРЅСЊРѕС—, РїРµСЂРµРІС–СЂСЏС”РјРѕ, С‡Рё Р·Р°РїРёСЃР°РІСЃСЏ Р±СѓС„РµСЂ Сѓ С„Р°Р№Р», СЏРєС‰Рѕ РЅС–, С‚Рѕ С‡РµРєР°С”РјРѕ
 				ResOfWrite = WriteFile(hOutPutFile, (LPVOID)Buffers[WRITE_BUFFER], BufferSize, &WritedBytes, &OverlOutPut);
 			BufferNumber = NewBufferNumber;
-			if (!ResOfRead)//Чекаємо закінчення читання файлу
+			if (!ResOfRead)//Р§РµРєР°С”РјРѕ Р·Р°РєС–РЅС‡РµРЅРЅСЏ С‡РёС‚Р°РЅРЅСЏ С„Р°Р№Р»Сѓ
 				GetOverlappedResult(hInPutFile, &OverlInPut, &ReadedBytes, TRUE);
 		}
 		//=================================================	
-		TempBuf = InpBuffer[BufferNumber];	//Присвоюємо минулий буфер для читання тимчасовому буферу.
+		TempBuf = InpBuffer[BufferNumber];	//РџСЂРёСЃРІРѕСЋС”РјРѕ РјРёРЅСѓР»РёР№ Р±СѓС„РµСЂ РґР»СЏ С‡РёС‚Р°РЅРЅСЏ С‚РёРјС‡Р°СЃРѕРІРѕРјСѓ Р±СѓС„РµСЂСѓ.
 		CountOfIterJ = ReadedBytes / sizeof(BlockType) + (ReadedBytes % sizeof(BlockType) ? 1 : 0);
-		if (isEncrypt)//Якщо шифруємо
+		if (isEncrypt)//РЇРєС‰Рѕ С€РёС„СЂСѓС”РјРѕ
 		{
-			if (CountOfIterI)//записуємо передостанній блок якщо файл більший за розмір буфера
+			if (CountOfIterI)//Р·Р°РїРёСЃСѓС”РјРѕ РїРµСЂРµРґРѕСЃС‚Р°РЅРЅС–Р№ Р±Р»РѕРє СЏРєС‰Рѕ С„Р°Р№Р» Р±С–Р»СЊС€РёР№ Р·Р° СЂРѕР·РјС–СЂ Р±СѓС„РµСЂР°
 			{
 				ResOfWrite = WriteFile(hOutPutFile, (LPVOID)Buffers[WRITE_BUFFER], BufferSize, &WritedBytes, &OverlOutPut);
 				if (!ResOfWrite)
 					WaitForSingleObject(OverlOutPut.hEvent, INFINITE);
 				OverlOutPut.Offset += BufferSize;
 			}
-			// Шифруємо останній блок
+			// РЁРёС„СЂСѓС”РјРѕ РѕСЃС‚Р°РЅРЅС–Р№ Р±Р»РѕРє
 			for (unsigned int j = 0; j < CountOfIterJ; ++j)
 				OutBuffer[j] = Alg->EncryptTheFile(TempBuf[j]);
-			//Якщо потрібно розширити останній блок
+			//РЇРєС‰Рѕ РїРѕС‚СЂС–Р±РЅРѕ СЂРѕР·С€РёСЂРёС‚Рё РѕСЃС‚Р°РЅРЅС–Р№ Р±Р»РѕРє
 			if (isNastyBlock)
 			{
-				//Записуємо вихідний розмір розширеного блоку в кінець буфера
+				//Р—Р°РїРёСЃСѓС”РјРѕ РІРёС…С–РґРЅРёР№ СЂРѕР·РјС–СЂ СЂРѕР·С€РёСЂРµРЅРѕРіРѕ Р±Р»РѕРєСѓ РІ РєС–РЅРµС†СЊ Р±СѓС„РµСЂР°
 				*(unsigned char*)(&OutBuffer[CountOfIterJ]) = isNastyBlock;
-				//Збільшуємо кількість байт для запису на 1
-				ReadedBytes += sizeof(BlockType) - isNastyBlock + 1;//Обчислюємо кількість байт якими доповнили останній блок +1
+				//Р—Р±С–Р»СЊС€СѓС”РјРѕ РєС–Р»СЊРєС–СЃС‚СЊ Р±Р°Р№С‚ РґР»СЏ Р·Р°РїРёСЃСѓ РЅР° 1
+				ReadedBytes += sizeof(BlockType) - isNastyBlock + 1;//РћР±С‡РёСЃР»СЋС”РјРѕ РєС–Р»СЊРєС–СЃС‚СЊ Р±Р°Р№С‚ СЏРєРёРјРё РґРѕРїРѕРІРЅРёР»Рё РѕСЃС‚Р°РЅРЅС–Р№ Р±Р»РѕРє +1
 			}
 
 		}
-		//Дешифруємо останній блок
+		//Р”РµС€РёС„СЂСѓС”РјРѕ РѕСЃС‚Р°РЅРЅС–Р№ Р±Р»РѕРє
 		else
 		{
-			if (ReadedBytes > 1)//Якщо зчитано більше 1 байта
+			if (ReadedBytes > 1)//РЇРєС‰Рѕ Р·С‡РёС‚Р°РЅРѕ Р±С–Р»СЊС€Рµ 1 Р±Р°Р№С‚Р°
 			{
-				if (CountOfIterI)//записуємо передостанній блок якщо файл більший за розмір буфера
+				if (CountOfIterI)//Р·Р°РїРёСЃСѓС”РјРѕ РїРµСЂРµРґРѕСЃС‚Р°РЅРЅС–Р№ Р±Р»РѕРє СЏРєС‰Рѕ С„Р°Р№Р» Р±С–Р»СЊС€РёР№ Р·Р° СЂРѕР·РјС–СЂ Р±СѓС„РµСЂР°
 				{
 					ResOfWrite = WriteFile(hOutPutFile, (LPVOID)Buffers[WRITE_BUFFER], BufferSize, &WritedBytes, &OverlOutPut);
 					if (!ResOfWrite)
 						WaitForSingleObject(OverlOutPut.hEvent, INFINITE);
 					OverlOutPut.Offset += BufferSize;
 				}
-				// Дешифруємо останній блок	
+				// Р”РµС€РёС„СЂСѓС”РјРѕ РѕСЃС‚Р°РЅРЅС–Р№ Р±Р»РѕРє	
 				for (unsigned int j = 0; j < CountOfIterJ; ++j)
 					OutBuffer[j] = Alg->EncryptTheFile(TempBuf[j]);
-				//Чи потрібно прибирати розширення останнього блоку
+				//Р§Рё РїРѕС‚СЂС–Р±РЅРѕ РїСЂРёР±РёСЂР°С‚Рё СЂРѕР·С€РёСЂРµРЅРЅСЏ РѕСЃС‚Р°РЅРЅСЊРѕРіРѕ Р±Р»РѕРєСѓ
 				if (FSize & 1)
 				{
-					isNastyBlock = *(unsigned char*)(&TempBuf[CountOfIterJ - 1]);//Зчитуємо вихідний розмір останнього блоку
-					//Зменшуємо кількість байт для запису
+					isNastyBlock = *(unsigned char*)(&TempBuf[CountOfIterJ - 1]);//Р—С‡РёС‚СѓС”РјРѕ РІРёС…С–РґРЅРёР№ СЂРѕР·РјС–СЂ РѕСЃС‚Р°РЅРЅСЊРѕРіРѕ Р±Р»РѕРєСѓ
+					//Р—РјРµРЅС€СѓС”РјРѕ РєС–Р»СЊРєС–СЃС‚СЊ Р±Р°Р№С‚ РґР»СЏ Р·Р°РїРёСЃСѓ
 					ReadedBytes = ReadedBytes - (sizeof(BlockType) - isNastyBlock) - 1;
 				}
 			}
 			else
 			{
 				isNastyBlock = *(unsigned char*)(&TempBuf[0]);
-				//Зменшуємо кількість байт для запису
+				//Р—РјРµРЅС€СѓС”РјРѕ РєС–Р»СЊРєС–СЃС‚СЊ Р±Р°Р№С‚ РґР»СЏ Р·Р°РїРёСЃСѓ
 				ReadedBytes = BufferSize - (sizeof(BlockType) - isNastyBlock);
 			}
 
 		}
-		//Записуємо останній буфер і очікуємо закінчення його запису
+		//Р—Р°РїРёСЃСѓС”РјРѕ РѕСЃС‚Р°РЅРЅС–Р№ Р±СѓС„РµСЂ С– РѕС‡С–РєСѓС”РјРѕ Р·Р°РєС–РЅС‡РµРЅРЅСЏ Р№РѕРіРѕ Р·Р°РїРёСЃСѓ
 		ResOfWrite = WriteFile(hOutPutFile, (LPVOID)Buffers[WRITE_BUFFER], ReadedBytes, &WritedBytes, &OverlOutPut);
 		if (!ResOfWrite)
 			WaitForSingleObject(OverlOutPut.hEvent, INFINITE);
 		OverlOutPut.Offset += ReadedBytes;
-		//Закриваємо файли та хендли для подій у структурах OVERLAPPED
+		//Р—Р°РєСЂРёРІР°С”РјРѕ С„Р°Р№Р»Рё С‚Р° С…РµРЅРґР»Рё РґР»СЏ РїРѕРґС–Р№ Сѓ СЃС‚СЂСѓРєС‚СѓСЂР°С… OVERLAPPED
 		CloseHandle(hOutPutFile);
 		CloseHandle(hInPutFile);
 		CloseHandle(OverlOutPut.hEvent);

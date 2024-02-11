@@ -1,13 +1,13 @@
-#pragma once
+п»ї#pragma once
 #ifndef BLOCK_H
 #define BLOCK_H
 union Block_64b
 {
-	unsigned long long Full_Block; //Блок повністю
+	unsigned long long Full_Block; //Р‘Р»РѕРє РїРѕРІРЅС–СЃС‚СЋ
 	struct 
 	{
-		unsigned int LowPartOfBlock; // Молодші 32 байти
-		unsigned int HighPartOfBlock; // Старші 32 байти
+		unsigned int LowPartOfBlock; // РњРѕР»РѕРґС€С– 32 Р±Р°Р№С‚Рё
+		unsigned int HighPartOfBlock; // РЎС‚Р°СЂС€С– 32 Р±Р°Р№С‚Рё
 	};
 };
 #endif
